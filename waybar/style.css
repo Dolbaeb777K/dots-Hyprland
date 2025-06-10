@@ -1,0 +1,29 @@
+* {
+    border: none;
+    border-radius: 0;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-size: 100%;
+    font-weight: 600;
+    min-height: 0;
+}
+
+window#waybar {
+    border-radius: 25px;
+    background-color: rgba(56, 56, 91, 0.51);
+    border: 3px solid rgba(56, 56, 91, 0.51);
+}
+
+
+/*-----module groups----*/
+.modules-left,
+.modules-center,
+.modules-right {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 14px;
+}
+
+/* Clock time */
+.modules-right {
+    padding-right: 34px;
+}
