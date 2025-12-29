@@ -2,20 +2,32 @@
     // Position
     "layer": "top",
     "position": "bottom",
+    "spacing": 7,
     "margin": "-10 20 8 20",
     
     // include the modules
     "include": [
-        "~/.config/waybar/default-modules.json",
+        "$HOME/.config/waybar/Modules.json",
+        "$HOME/.config/waybar/CustomModules.json",
+	"$HOME/.config/waybar/GroupModules.json"
     ],
 
+		// Just replace "Sway" in names of modules to the "hyprland"
     "modules-left": [
-        "hyprland/workspaces", "hyprland/mode"
+        "hyprland/workspaces",
+	"hyprland/mode",
+	"hyprland/language",
+	"idle_inhibitor"
     ],
     "modules-center": [
         "hyprland/window"
     ],
     "modules-right": [
-        "clock"
-    ],
+	"custom/volume",
+        "clock",
+	"tray",
+	"custom/separator#blank",
+	"custom/power"
+	// "group/power"
+    ]
 }

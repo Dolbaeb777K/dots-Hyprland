@@ -1,10 +1,32 @@
 * {
+	font-family: "JetBrainsMono Nerd Font";
+	font-weight: bold;
+	min-height: 0;
+	/* set font-sizpe to 100% if font scaling is set to 1.00 using nwg-look */
+	/* font-size: 97%; */
+	color: white;
+	font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
+}
+
+/* * {
     border: none;
     border-radius: 0;
     font-family: Roboto, Helvetica, Arial, sans-serif;
     font-size: 100%;
     font-weight: 600;
+		color: white;
     min-height: 0;
+}
+*/
+#custom-volume {
+  padding: 0 8px;
+  margin: 0 16px;
+  background: #222222;
+  border-radius: 8px;
+}
+
+#custom-volume.muted {
+  color: #ff5555;
 }
 
 window#waybar {
@@ -13,6 +35,17 @@ window#waybar {
     border: 3px solid rgba(56, 56, 91, 0.51);
 }
 
+/* PopUp Menu Style exp. power_menu */
+menu { 
+    border-radius: 15px;
+    background: #161320;
+    color: #B5E8E0;
+}
+menuitem {
+    border-radius: 15px;
+}
+
+
 
 /*-----module groups----*/
 .modules-left,
@@ -20,10 +53,6 @@ window#waybar {
 .modules-right {
     padding-top: 4px;
     padding-bottom: 4px;
-    padding-left: 14px;
-}
-
-/* Clock time */
-.modules-right {
-    padding-right: 34px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
