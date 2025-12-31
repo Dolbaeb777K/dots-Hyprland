@@ -1,14 +1,37 @@
-#!/bin/bash
-# This script needs for using mouse control in BeamNG Drive Game.
+# 
+# This script will move your cursor
+# use bind = $mainMod, left, exec, ../MoveCursor.sh to Left
+# Where Left may be:
+# - Left
+# - Up
+# - Down
+# - Right
 
-windows=$(hyprctl activewindow | grep -o "BeamNG.drive.x64" -m 1)
+x=$(hyprctl cursorpos | cut -d ',' -f1)
+y=$(hyprctl cursorpos | cut -d ',' -f2)
 
-xd=$(hyprctl cursorpos | cut -d ',' -f1)
+# String to integer
+x=$((x + 0))
+y=$((y + 0))
 
-if [[ "$windows" == "BeamNG.drive.x64" ]]; then
-  hyprctl dispatch movecursor "$xd" 780
+long=4
 
-  # else
-  # Just for test.
-  # echo "no"
+# Encrase coors.
+ex=$((x + "$long"))
+ey=$((y + "$long"))
+
+# Decrase coors.
+dx=$((x - "$long"))
+dy=$((y - "$long"))
+
+if [[ "$1" == "to" ]]; then
+  if   [[ "$2" == "Left" ]]; then
+	hyprctl dispatch movecursor "$dx" "$y"
+  elif [[ "$2" == "Down" ]]; then
+	hyprctl dispatch movecursor "$x" "$ey" 
+  elif [[ "$2" == "Up" ]]; then
+	hyprctl dispatch movecursor "$x" "$dy" 
+  elif [[ "$2" == "Right" ]]; then
+	hyprctl dispatch movecursor "$ex" "$y"
+  fi
 fi
