@@ -14,24 +14,28 @@ y=$(hyprctl cursorpos | cut -d ',' -f2)
 x=$((x + 0))
 y=$((y + 0))
 
-long=4
-
-# Encrase coors.
-ex=$((x + "$long"))
-ey=$((y + "$long"))
-
-# Decrase coors.
-dx=$((x - "$long"))
-dy=$((y - "$long"))
-
+# Distance of moving cursor
 if [[ "$1" == "to" ]]; then
-  if   [[ "$2" == "Left" ]]; then
+	long=8
+elif [[ "$1" == "more" ]]; then
+	long=50
+fi
+
+ # Encrase coors
+ ex=$((x + "$long"))
+ ey=$((y + "$long"))
+ 
+ # Decrase coors
+ dx=$((x - "$long"))
+ dy=$((y - "$long"))
+
+# Moving cursor
+if   [[ "$2" == "Left" ]]; then
 	hyprctl dispatch movecursor "$dx" "$y"
-  elif [[ "$2" == "Down" ]]; then
+elif [[ "$2" == "Down" ]]; then
 	hyprctl dispatch movecursor "$x" "$ey" 
-  elif [[ "$2" == "Up" ]]; then
+elif [[ "$2" == "Up" ]]; then
 	hyprctl dispatch movecursor "$x" "$dy" 
-  elif [[ "$2" == "Right" ]]; then
+elif [[ "$2" == "Right" ]]; then
 	hyprctl dispatch movecursor "$ex" "$y"
-  fi
 fi
