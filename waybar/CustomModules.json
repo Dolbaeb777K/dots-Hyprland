@@ -11,6 +11,21 @@
 		    "logout": "hyprctl dispatch exit"
 		}
 	},
+        "custom/niflveil": {
+           "format": "{}",
+           "exec": "niflveil show",
+           "on-click": "niflveil restore-last",
+           "return-type": "json",
+           "interval": "once",
+           "signal": 8
+        },
+
+	"custom/layout": {
+	   "format": " (.)(.)",
+	   "tooltip": false,
+	   "on-click": "hyprctl dispatch togglesplit"
+	},
+
 	"custom/quit": {
 	    "format": "󰗼",
 	    "tooltip": false,
