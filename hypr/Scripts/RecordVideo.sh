@@ -12,7 +12,7 @@ filePart="${time}.mp4"
 fileReg="$dir/Region $filePart"
 
 # ARRAYs
-RecParams=("-m" "mp4" "--audio")
+RecParams=("-m" "mp4")
 monitors=($(xrandr | grep 'connected' | cut -d' ' -f1))
 
 action=$(for ((i = 1; i <= repeats; i++)); do
@@ -90,20 +90,37 @@ fullscreen() {
 
 # START RECORD REGION.
 region() {
+  geometry=$(slurp 2>&1)
+
+  if [[ -z "$geometry" ]] || [[ "$geometry" == *"selection cancelled"* ]]; then
+	return 1 # Exit from the function
+  fi
+
+  $(sDir)/Sounds.sh --error
+
+  # Making the temporary file for recording saving
   tmpfile=$(mktemp)
+
+  # Removing tmpfile to avoid consuming memory, if it exist for some reason
   rm $tmpfile &
-  wf-recorder -g "$(slurp && "${sDir}/Sounds.sh" --error)" -f "$tmpfile" ${RecParams[@]}
+  # // Sound.sh --error is just sound of stoping record, because it sounds like may be bubble
+  wf-recorder -g "$geometry" -f "$tmpfile" ${RecParams[@]}
 
   if [[ -s "$tmpfile" ]]; then
-    mv "$tmpfile" "$fileReg" # SAVIMG THE FILE TO VIDEOS FOLDER.
+    # SAVIMG THE FILE TO VIDEOS FOLDER.
+    mv "$tmpfile" "$fileReg"
+  else
+    # Remove void tempfile
+    rm -f "$tmpfile"
   fi
 
   notify_view "region"
 }
 
 if [[ "$1" == "--region" ]]; then
-  # STOP WORKING WF-PROCESS
-  if pgrep -x "wf-recorder" >/dev/null; then
+  # STOPING procces if the wf-recorder proccess exist and push the notify
+  if pgrep -x wf-recorder >/dev/null; then
+    # It will stop wf-recorder procces for that region function could be continue after string of start wf-recorder with params
     pkill wf-recorder
   else
     region
@@ -113,7 +130,7 @@ elif [[ "$1" == "--fullscreen" ]]; then
   # if [[ a lot of monitors ]]; then................
   notify_view "fullscreen"
 else
-  echo -e "You should use some of this parametrs: --region"
+  echo -e "You should use some of this parameters: --region"
   notify_view
 fi
 
